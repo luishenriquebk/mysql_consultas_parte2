@@ -1,4 +1,4 @@
-  # Consultas PARTE 2 MySQL 🐬
+# Consultas PARTE 2 MySQL 🐬
 
 https://github.com/luishenriquebk/mysql_consultas_parte2/assets/102004702/41ff5693-5233-451f-8720-1d222d415136
 
@@ -44,41 +44,42 @@ VALUES
 ('Carlos Pereira', 'Desenvolvedor', 4300.00, '2022-05-07', 'Manaus', '114-1155'),
 ('Fernanda Castro', 'Analista', 5200.00, '2022-03-15', 'Recife', '116-1177');
 ```
-Exibindo os valores das duas TABELAS criadas exibidos:
+SELECIONANDO TODOS OS VALORES DA TABELA EMPREGADO;
 
 ```
-SELECT * FROM CLIENTE;
-SELECT * FROM VENDA;
+SELECT * FROM EMPREGADO;
 
-| id_cliente | nome_cliente    | email_cliente         | idade_cliente | genero | cidade_cliente     | id_venda | -- CLIENTE
-|------------|-----------------|-----------------------|---------------|--------|--------------------|----------|
-| 1          | Lucas Castro    | lccastro@gmail.com    | 25            | M      | Vila Velha         | 1        |
-| 2          | Arthur Pacheco  | pacheco@gmail.com     | 24            | M      | Vila Velha         | 2        |
-| 3          | Alexia          | alexia@gmail.com      | 23            | F      | Montes Claros      | 3        |
-| 4          | Henrique        | henrique@gmail.com    | 25            | M      | Montes Claros      | 4        |
-| 5          | Joao            | joao@gmail.com        | 25            | M      | Vitorai            | 5        |
-
-| id_venda | valor_total | forma_pagamento | data_compra | -- VENDA
-|----------|-------------|-----------------|-------------|
-| 1        | 50.00       | Debito          | 2023-12-07  |
-| 2        | 30.00       | PIX             | 2023-12-10  |
-| 3        | 45.00       | Debito          | 2023-12-11  |
-| 4        | 50.00       | Debito          | 2023-12-12  |
-| 5        | 75.00       | Credito         | 2023-12-14  |
+| ID_EMPREGADO | NOME         | CARGO     | SALARIO | DATA_ADMISSAO | CIDADE    | TELEFONE    |
+|--------------|--------------|-----------|---------|---------------|-----------|-------------|
+| 1            | Alice        | ANALISTA  | 5000.00 | 2023-01-15    | São Paulo | 999-1234    |
+| 2            | Bob          | GERENTE   | 7000.00 | 2022-05-20    | Rio       | 888-5678    |
+| 3            | Charlie      | ANALISTA  | 4800.00 | 2023-02-10    | São Paulo | 777-2468    |
+| 4            | Diana        | ANALISTA  | 5200.00 | 2023-03-05    | Rio       | 666-1357    |
+| 5            | Emma         | ANALISTA  | 5100.00 | 2023-04-12    | São Paulo | 555-9876    |
+| 6            | Frank        | ANALISTA  | 4900.00 | 2023-05-18    | São Paulo | 444-8765    |
+| 7            | Grace        | GERENTE   | 7200.00 | 2022-06-30    | Rio       | 333-6543    |
+| 8            | Henry        | GERENTE   | 7100.00 | 2022-07-25    | São Paulo | 222-5432    |
+| 9            | Iris         | ANALISTA  | 4800.00 | 2023-08-20    | São Paulo | 111-4321    |
+| 10           | Jack         | ANALISTA  | 4900.00 | 2023-09-17    | Rio       | 000-3210    |
 ```
 
-### 1. UTILIZANDO WHERE PARA FILTRAR COM BASE EM DIFERENTES CONDIÇÕES:
-
-Para realizar a consulta com diferentes condições foi utilizado o seguinte comando e condições:
+### 1. FAÇA UMA CONSULTA UTILIZANDO UM SUBCONSULTA:
 
 ```sql
-SELECT * FROM VENDA
-WHERE forma_pagamento = 'Debito' AND valor >= 35;
+-- SELECIONANDO OS EMPREGAGOS QUE POSSUEM O SALARIO MAIOR QUE A MEDIA SALARIAL DOS EMPREGADOS
+SELECT * FROM EMPREGADO
+WHERE SALARIO > (
+	SELECT AVG(SALARIO)
+    FROM EMPREGADO
+) ORDER BY SALARIO DESC;
 
-| id_venda | valor_total | forma_pagamento | data_compra |
-|----------|-------------|-----------------|-------------|
-| 3        | 45.00       | Debito          | 2023-12-11  |
-| 4        | 50.00       | Debito          | 2023-12-12  |
+| ID_EMPREGADO |     NOME          |     CARGO      | SALARIO | DATA_ADMISSAO |   CIDADE        |   TELEFONE    |
+|--------------|-------------------|----------------|---------|---------------|-----------------|---------------|
+|      8       | Julia Fernandes   | Gerente        | 7500.00 | 2021-12-25    | Fortaleza       | 112-1133      |
+|      5       | Luiz Santos       | Gerente        | 7200.00 | 2021-09-10    | Porto Alegre    | 555-6666      |
+|      2       | Maria Souza       | Gerente        | 7000.00 | 2021-11-20    | Rio de Janeiro  | 333-4444      |
+
+
 
 ```
 
